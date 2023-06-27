@@ -2,7 +2,7 @@
 
 This is the working area for the individual Internet-Draft, "Framework of Forwarding Commitment BGP".
 
-* [Editor's Copy](https://LucasWang86.github.io/fcbgp--framework/draft-wang-sidr-fcbgpframework.html)
+* [Editor's Copy](https://LucasWang86.github.io/fcbgp--framework/#go.draft-wang-sidr-fcbgpframework.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-wang-sidr-fcbgpframework)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-wang-sidr-fcbgpframework)
 * [Compare Editor's Copy to Individual Draft](https://LucasWang86.github.io/fcbgp--framework/#go.draft-wang-sidr-fcbgpframework.diff)
