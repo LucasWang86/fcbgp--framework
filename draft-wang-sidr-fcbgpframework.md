@@ -19,8 +19,8 @@ venue:
   type: "Working Group"
   mail: "sidr@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/sidr/"
-  github: "LucasWang86/framework-of-fcbgp"
-  latest: "https://LucasWang86.github.io/framework-of-fcbgp/draft-wang-sidr-frameworkoffcbgp.html"
+  github: "LucasWang86/fcbgp--framework"
+  latest: "https://LucasWang86.github.io/fcbgp--framework/draft-wang-sidr-fcbgpframework.html"
 
 author:
 
