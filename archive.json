@@ -1,0 +1,109 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2023-06-29T01:02:41.338007+00:00",
+  "repo": "LucasWang86/fcbgp--framework",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOJ0geBc5T_DXh",
+      "title": "Update and rename draft-wang-sidr-fcbgpframework-latest to draft-wang-sidr-fcbgp-framework",
+      "url": "https://github.com/LucasWang86/fcbgp--framework/pull/1",
+      "state": "CLOSED",
+      "author": "BasilGuo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-27T03:06:05Z",
+      "updatedAt": "2023-06-27T03:11:05Z",
+      "baseRepository": "LucasWang86/fcbgp--framework",
+      "baseRefName": "main",
+      "baseRefOid": "bcc00b86b0bcecaddd40723bd486dca2a656bd54",
+      "headRepository": "LucasWang86/fcbgp--framework",
+      "headRefName": "BasilGuo-test",
+      "headRefOid": "a4f2867182eaec7e53779567a7d2096239d2c6dd",
+      "closedAt": "2023-06-27T03:11:05Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOJ0geBc5T_EhV",
+      "title": "update-filename",
+      "url": "https://github.com/LucasWang86/fcbgp--framework/pull/2",
+      "state": "MERGED",
+      "author": "BasilGuo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-27T03:12:57Z",
+      "updatedAt": "2023-06-27T03:14:07Z",
+      "baseRepository": "LucasWang86/fcbgp--framework",
+      "baseRefName": "main",
+      "baseRefOid": "6358ce1eab90106db65487ece4457a6f43eebf3c",
+      "headRepository": "LucasWang86/fcbgp--framework",
+      "headRefName": "BasilGuo-update-filename",
+      "headRefOid": "fdd1158c04ed6c36c7d85040f0476f337a7400cb",
+      "closedAt": "2023-06-27T03:14:06Z",
+      "mergedAt": "2023-06-27T03:14:06Z",
+      "mergedBy": "BasilGuo",
+      "mergeCommit": {
+        "oid": "5cee57e2c80cc68f973666856c32365002e90ef1"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
