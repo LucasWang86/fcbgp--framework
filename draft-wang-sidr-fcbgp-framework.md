@@ -124,26 +124,26 @@ Upon receiving a BGP announcement, if AS A decides to accept the route and exten
 
 FC-BGP is not bound to a specific FC propagation method and can use, but is not limited to, the following mechanisms:
 
-1. Extend BGP Update Message. Assign a new BGP Update Path Attribute to carry FCs, see draft XXX for more details.
-2. Propose a new propagation protocol that guarantees consistent FC propagation,  see draft XXX for more details.
-3. Use existing network infrastructure, such as extending RPKI to add a new signed object to store FCs,  see draft XXX for more details.
+1. Extend BGP Update Message. Assign a new BGP Update Path Attribute to carry FCs.
+2. Propose a new propagation protocol that guarantees consistent FC propagation.
+3. Use existing network infrastructure, such as extending RPKI to add a new signed object to store FCs.
 
 Meanwhile, the flexibility of FCs further enables efficient forwarding validation on the dataplane. Specifically, because the FCs are self-proving, an AS can conceptually construct a certified AS-path using a list of consecutive per-hop FCs, and then binds its network traffic (identified by < src-AS, dst-AS, prefix >) to the path, such as < AS B, AS A, P(B) >, where P(B) is the prefix owned by AS B destined to AS A. This binding information essentially defines the authorized forwarding path for the traffic < AS B, AS A, P(B) >. Therefore, by advertising the binding information globally, both on-path and off-path ASes are aware of the desired forwarding paths so that they can collaboratively discard unwanted traffic that takes unauthorized paths.
 
 Similar to FC propagation, the propagation of binding messages in FC-BGP is not restricted to specific methods and can be, but is not limited to, the following:
 
-1. Propose a new propagation protocol that guarantees the consistency of binding messages, see draft XXX for more details.
-2. Use existing network infrastructure, such as extending RPKI to add a new signed object to store binding messages, see draft XXX for more details.
+1. Propose a new propagation protocol that guarantees the consistency of binding messages.
+2. Use existing network infrastructure, such as extending RPKI to add a new signed object to store binding messages.
 
 
 # Forwarding Commitment
 
-FC-BGP enhances the security of inter-domain routing and forwarding by building a publicly verifiable view on the forwarding commitments. At a high-level, a routing commitment (FC) of an AS is a cryptographically-signed primitive that binds the AS's routing decisions (e.g. willing to forward traffic for a prefix via one of its directly-connected hops). With this view, ASes are able to:
+FC-BGP enhances the security of inter-domain routing and forwarding by building a publicly verifiable view of the forwarding commitments. At a high level, a routing commitment (FC) of an AS is a cryptographically-signed primitive that binds the AS's routing decisions (e.g. willing to forward traffic for a prefix via one of its directly-connected hops). With this view, ASes are able to:
 
 1. Evaluate the authenticity (or security) of the control plane BGP announcements based on committed routing decisions from relevant ASes.
 2. Ensure that the dataplane forwarding is consistent with the routing decisions committed in the control plane.
 
-Upon receiving a BGP announcement, an upgraded AS generates a corresponding FC that contains the core information of the announcement, such as prefixes, sending AS and receiving AS, and will be signed with the sender's private key for security. See draft XXX for specific structure of FC.
+Upon receiving a BGP announcement, an upgraded AS generates a corresponding FC that contains the core information of the announcement, such as prefixes, sending AS, and receiving AS, and will be signed with the sender's private key for security.
 
 # BGP Path Validation
 
