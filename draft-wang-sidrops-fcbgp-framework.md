@@ -29,7 +29,7 @@ author:
       org: Tsinghua University
       city: Beijing
       country: China
-      email: xuke@csnet1.cs.tsinghua.edu.cn
+      email: xuke@tsinghua.edu.cn
   -
       fullname: Xiaoliang Wang
       org: Tsinghua University
