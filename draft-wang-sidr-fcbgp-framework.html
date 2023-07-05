@@ -1288,19 +1288,19 @@ Plane     |    1.1     |        |    1.2       |
 Upon receiving a BGP announcement, if AS A decides to accept the route and extends the path to its (selected) neighbor AS B, AS A commits its routing intent by generating a cryptographically-signed FC. Therefore, downstream on-path ASes (such as AS B) can validate the correctness of a BGP update by checking the FCs associated with the individual hops on the AS-path. Because the FCs are designed to be hop-specific and path-agnostic, a deployed AS can immediately certify its routing intent regardless of the deployment status of other ASes. This is fundamentally different from existing path-level BGP authentication protocol (e.g., BGPsec) where an on-path AS cannot approve any form of routing intent unless all on-path ASes are upgraded.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">FC-BGP is not bound to a specific FC propagation method and can use, but is not limited to, the following mechanisms:<a href="#section-3-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-4">
-<li id="section-3-4.1">Extend BGP Update Message. Assign a new BGP Update Path Attribute to carry FCs, see draft XXX for more details.<a href="#section-3-4.1" class="pilcrow">¶</a>
+<li id="section-3-4.1">Extend BGP Update Message. Assign a new BGP Update Path Attribute to carry FCs.<a href="#section-3-4.1" class="pilcrow">¶</a>
 </li>
-        <li id="section-3-4.2">Propose a new propagation protocol that guarantees consistent FC propagation,  see draft XXX for more details.<a href="#section-3-4.2" class="pilcrow">¶</a>
+        <li id="section-3-4.2">Propose a new propagation protocol that guarantees consistent FC propagation.<a href="#section-3-4.2" class="pilcrow">¶</a>
 </li>
-        <li id="section-3-4.3">Use existing network infrastructure, such as extending RPKI to add a new signed object to store FCs,  see draft XXX for more details.<a href="#section-3-4.3" class="pilcrow">¶</a>
+        <li id="section-3-4.3">Use existing network infrastructure, such as extending RPKI to add a new signed object to store FCs.<a href="#section-3-4.3" class="pilcrow">¶</a>
 </li>
       </ol>
 <p id="section-3-5">Meanwhile, the flexibility of FCs further enables efficient forwarding validation on the dataplane. Specifically, because the FCs are self-proving, an AS can conceptually construct a certified AS-path using a list of consecutive per-hop FCs, and then binds its network traffic (identified by &lt; src-AS, dst-AS, prefix &gt;) to the path, such as &lt; AS B, AS A, P(B) &gt;, where P(B) is the prefix owned by AS B destined to AS A. This binding information essentially defines the authorized forwarding path for the traffic &lt; AS B, AS A, P(B) &gt;. Therefore, by advertising the binding information globally, both on-path and off-path ASes are aware of the desired forwarding paths so that they can collaboratively discard unwanted traffic that takes unauthorized paths.<a href="#section-3-5" class="pilcrow">¶</a></p>
 <p id="section-3-6">Similar to FC propagation, the propagation of binding messages in FC-BGP is not restricted to specific methods and can be, but is not limited to, the following:<a href="#section-3-6" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-7">
-<li id="section-3-7.1">Propose a new propagation protocol that guarantees the consistency of binding messages, see draft XXX for more details.<a href="#section-3-7.1" class="pilcrow">¶</a>
+<li id="section-3-7.1">Propose a new propagation protocol that guarantees the consistency of binding messages.<a href="#section-3-7.1" class="pilcrow">¶</a>
 </li>
-        <li id="section-3-7.2">Use existing network infrastructure, such as extending RPKI to add a new signed object to store binding messages, see draft XXX for more details.<a href="#section-3-7.2" class="pilcrow">¶</a>
+        <li id="section-3-7.2">Use existing network infrastructure, such as extending RPKI to add a new signed object to store binding messages.<a href="#section-3-7.2" class="pilcrow">¶</a>
 </li>
       </ol>
 </section>
@@ -1310,14 +1310,14 @@ Upon receiving a BGP announcement, if AS A decides to accept the route and exten
       <h2 id="name-forwarding-commitment">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-forwarding-commitment" class="section-name selfRef">Forwarding Commitment</a>
       </h2>
-<p id="section-4-1">FC-BGP enhances the security of inter-domain routing and forwarding by building a publicly verifiable view on the forwarding commitments. At a high-level, a routing commitment (FC) of an AS is a cryptographically-signed primitive that binds the AS's routing decisions (e.g. willing to forward traffic for a prefix via one of its directly-connected hops). With this view, ASes are able to:<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">FC-BGP enhances the security of inter-domain routing and forwarding by building a publicly verifiable view of the forwarding commitments. At a high level, a routing commitment (FC) of an AS is a cryptographically-signed primitive that binds the AS's routing decisions (e.g. willing to forward traffic for a prefix via one of its directly-connected hops). With this view, ASes are able to:<a href="#section-4-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4-2">
 <li id="section-4-2.1">Evaluate the authenticity (or security) of the control plane BGP announcements based on committed routing decisions from relevant ASes.<a href="#section-4-2.1" class="pilcrow">¶</a>
 </li>
         <li id="section-4-2.2">Ensure that the dataplane forwarding is consistent with the routing decisions committed in the control plane.<a href="#section-4-2.2" class="pilcrow">¶</a>
 </li>
       </ol>
-<p id="section-4-3">Upon receiving a BGP announcement, an upgraded AS generates a corresponding FC that contains the core information of the announcement, such as prefixes, sending AS and receiving AS, and will be signed with the sender's private key for security. See draft XXX for specific structure of FC.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-3">Upon receiving a BGP announcement, an upgraded AS generates a corresponding FC that contains the core information of the announcement, such as prefixes, sending AS, and receiving AS, and will be signed with the sender's private key for security.<a href="#section-4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="bgp-path-validation">

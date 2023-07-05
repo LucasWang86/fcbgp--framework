@@ -197,14 +197,13 @@ Table of Contents
    but is not limited to, the following mechanisms:
 
    1.  Extend BGP Update Message.  Assign a new BGP Update Path
-       Attribute to carry FCs, see draft XXX for more details.
+       Attribute to carry FCs.
 
    2.  Propose a new propagation protocol that guarantees consistent FC
-       propagation, see draft XXX for more details.
+       propagation.
 
    3.  Use existing network infrastructure, such as extending RPKI to
-       add a new signed object to store FCs, see draft XXX for more
-       details.
+       add a new signed object to store FCs.
 
    Meanwhile, the flexibility of FCs further enables efficient
    forwarding validation on the dataplane.  Specifically, because the
@@ -224,17 +223,16 @@ Table of Contents
    limited to, the following:
 
    1.  Propose a new propagation protocol that guarantees the
-       consistency of binding messages, see draft XXX for more details.
+       consistency of binding messages.
 
    2.  Use existing network infrastructure, such as extending RPKI to
-       add a new signed object to store binding messages, see draft XXX
-       for more details.
+       add a new signed object to store binding messages.
 
 4.  Forwarding Commitment
 
    FC-BGP enhances the security of inter-domain routing and forwarding
-   by building a publicly verifiable view on the forwarding commitments.
-   At a high-level, a routing commitment (FC) of an AS is a
+   by building a publicly verifiable view of the forwarding commitments.
+   At a high level, a routing commitment (FC) of an AS is a
    cryptographically-signed primitive that binds the AS's routing
    decisions (e.g. willing to forward traffic for a prefix via one of
    its directly-connected hops).  With this view, ASes are able to:
@@ -248,9 +246,8 @@ Table of Contents
 
    Upon receiving a BGP announcement, an upgraded AS generates a
    corresponding FC that contains the core information of the
-   announcement, such as prefixes, sending AS and receiving AS, and will
-   be signed with the sender's private key for security.  See draft XXX
-   for specific structure of FC.
+   announcement, such as prefixes, sending AS, and receiving AS, and
+   will be signed with the sender's private key for security.
 
 5.  BGP Path Validation
 
