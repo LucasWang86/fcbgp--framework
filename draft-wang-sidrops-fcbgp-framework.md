@@ -3,7 +3,7 @@ title: "Framework of Forwarding Commitment BGP"
 abbrev: "fcbgp-framework"
 category: std
 
-docname: draft-wang-sidr-fcbgp-framework-latest
+docname: draft-wang-sidrops-fcbgp-framework-latest
 submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
 number:
 date:
