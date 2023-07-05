@@ -5,10 +5,10 @@
 Secure Inter-Domain Routing                                        K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Standards Track                                  Z. liu
-Expires: 29 December 2023                                          L. Qi
+Expires: 6 January 2024                                            L. Qi
                                                                    J. Wu
                                                      Tsinghua University
-                                                            27 June 2023
+                                                             5 July 2023
 
 
                  Framework of Forwarding Commitment BGP
@@ -57,7 +57,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 December 2023.
+   This Internet-Draft will expire on 6 January 2024.
 
 Copyright Notice
 
@@ -140,10 +140,10 @@ Table of Contents
 
 2.  Threat Model and Assumptions
 
-   We assume that ASes participating in FC-BGP have access to RPKI, that
-   stores authoritative information about the mapping between AS numbers
-   and their owned IP prefixes, as well as ASes' public keys.  Given
-   above assumptions, we consider the following adversary:
+   We assume that ASes participating in FC-BGP have access to RPKI,
+   which stores authoritative information about the mapping between AS
+   numbers and their owned IP prefixes, as well as ASes' public keys.
+   Given the above assumptions, we consider the following adversary:
 
    1.  On the control plane, the adversary can launch path manipulation
        attacks.  This means that the adversary will try to manipulate
@@ -176,19 +176,19 @@ Table of Contents
 
                        Figure 1: Overview of FC-BGP.
 
-   Overview of FC-BGP is shown in Figure 1.  The key primitive in FC-BGP
-   is the Forwarding Commitment (FC), which is a publicly verifiable
+   An overview of FC-BGP is shown in Figure 1.  The key primitive in FC-
+   BGP is the Forwarding Commitment (FC), which is a publicly verifiable
    code that certifies an AS's routing intent on one of its directly
    connected hops, i.e., an FC indicates whether the AS is willing to
    carry traffic for a specific prefix over the hop.  Upon receiving a
    BGP announcement, if AS A decides to accept the route and extends the
-   path to its (selected) neighbors AS B, the AS A commits its routing
-   intent by generating a cryptographically-signed FC.  Therefore,
-   downstream on-path ASes (such as AS B) can validate the correctness
-   of a BGP update by checking the FCs associated with the individual
-   hops on the AS-path.  Because the FCs are designed to be hop-specific
-   and path-agnostic, a deployed AS can immediately certify its routing
-   intent regardless of the deployment status of other ASes.  This is
+   path to its (selected) neighbor AS B, AS A commits its routing intent
+   by generating a cryptographically-signed FC.  Therefore, downstream
+   on-path ASes (such as AS B) can validate the correctness of a BGP
+   update by checking the FCs associated with the individual hops on the
+   AS-path.  Because the FCs are designed to be hop-specific and path-
+   agnostic, a deployed AS can immediately certify its routing intent
+   regardless of the deployment status of other ASes.  This is
    fundamentally different from existing path-level BGP authentication
    protocol (e.g., BGPsec) where an on-path AS cannot approve any form
    of routing intent unless all on-path ASes are upgraded.
@@ -322,13 +322,13 @@ Table of Contents
    When FC-BGP used in conjunction with origin validation, the following
    security guarantees can be achieved:
 
-   1.  the source AS in the route announcement is authorized.
+   1.  The source AS in a route announcement is authorized.
 
-   2.  FC-BGP speakers on the AS-Path is legally authorized to propagate
-       the route announcements.
+   2.  FC-BGP speakers on the AS-Path are authorized to propagate the
+       route announcements.
 
-   3.  The forwarding path of packets is consistent with the route path
-       announced by the FC-BGP speakers.
+   3.  The forwarding path of packets is consistent with the routing
+       path announced by the FC-BGP speakers.
 
    FC-BGP is designed to enhance the security of control plane routing
    and dataplane forwarding in the Internet at the network layer.
@@ -336,9 +336,9 @@ Table of Contents
    routing decisions with publicly verifiable cryptography commitments,
    based on which any on-path AS can verify the authenticity of a BGP
    path; meanwhile FC-BGP ensures the consistency between the control
-   plane and dataplane, i.e., the network traffic must take the
+   plane and dataplane, i.e., the network traffic shall take the
    forwarding path that is consistent with the control plane routing
-   decisions, or otherwise being discarded.  More crucially, the above
+   decisions, or otherwise be discarded.  More crucially, the above
    security guarantees offered by FC-BGP are not binary, i.e., secure or
    non-secure.  Instead, the security benefits are strictly
    monotonically increasing as the deployment rate of FC-BGP (i.e., the
