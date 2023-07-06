@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-04T01:05:53.384978+00:00",
+  "timestamp": "2023-07-06T01:06:03.419835+00:00",
   "repo": "LucasWang86/fcbgp--framework",
   "labels": [
     {
@@ -102,6 +102,32 @@
       "mergeCommit": {
         "oid": "5cee57e2c80cc68f973666856c32365002e90ef1"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOJ0geBc5UtXyj",
+      "title": "change wg",
+      "url": "https://github.com/LucasWang86/fcbgp--framework/pull/3",
+      "state": "CLOSED",
+      "author": "BasilGuo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-07-05T14:06:09Z",
+      "updatedAt": "2023-07-05T14:07:19Z",
+      "baseRepository": "LucasWang86/fcbgp--framework",
+      "baseRefName": "main",
+      "baseRefOid": "ff4743731a48af3bc6894423e9e84509390c56f3",
+      "headRepository": "LucasWang86/fcbgp--framework",
+      "headRefName": "BasilGuo-change-wg",
+      "headRefOid": "7bf4ef33e85adcad730e7d2513fb682cd13259fb",
+      "closedAt": "2023-07-05T14:07:19Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
