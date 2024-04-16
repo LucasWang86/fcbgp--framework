@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-14T00:52:53.020514+00:00",
+  "timestamp": "2024-04-16T00:45:00.132367+00:00",
   "repo": "LucasWang86/fcbgp--framework",
   "labels": [
     {
@@ -49,7 +49,24 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 4,
+      "id": "I_kwDOJ0geBc6FtAzt",
+      "title": "Notepad for IETF 118",
+      "url": "https://github.com/LucasWang86/fcbgp--framework/issues/4",
+      "state": "OPEN",
+      "author": "BasilGuo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "[Minutes IETF118: idr: Tue 12:00](https://datatracker.ietf.org/doc/minutes-118-idr-202311071200/)\r\n\r\n# Framework of Forwarding Commitment BGP (15 mins)\r\n\r\n> Keyur:\r\n>   1. As WG chair, suggest to present in SIDROPS also.\r\n>   2. As WG member, you may think about decentralize this to solve different kinds of dos attack.\r\n>   3. In term of scale and convergence performance, need to consider router's CPU are different from computer CPUs.\r\n>\r\n> Jeff:\r\n>   1. The procedure in the draft is incomplete. Need to talk more about what goes into the path attributes.\r\n>   2. This is close to SoBGP, while replay and spoofing could be easier.\r\n>\r\n> Zhuotao: For the replay attack, plan to add timestamp. And think with pathlet it still can secure the entire path.\r\n>\r\n> Jeff: Then it means you need to rely on the immediate upstream to tell you the truth.\r\n>\r\n> Andrew: As operator without AD hat, have great concern about RIR based route invalidation.\r\n>\r\n> Randy Bush: We are in the condition now with ROV, nobody complains about serious breakage.\r\n>\r\n> Andrew: It does not mean it will not happen. Take a look at the number of routes being signed in Africa and ask why.\r\n\r\nThough this draft is not presented at IETF 118, these questions/suggestions still apply to this draft.\r\n\r\nThe draft we present at IETF 118 is [draft-wang-idr-frameworkoffcbgp-00 - Framework of Forwarding Commitment BGP](https://datatracker.ietf.org/doc/draft-wang-idr-frameworkoffcbgp/) and the Github repository link is [LucasWang86/framework-of-fcbgp](https://github.com/LucasWang86/framework-of-fcbgp/).\r\n\r\nIt seems no need to maintain so many repositories. I decided to merge these repositories. We'd better manage these repositories in one account/place, such as in [FCBGP](https://github.com/FCBGP) which maintains the I-D.FC-BGP Protocol Specification.",
+      "createdAt": "2024-04-15T09:26:56Z",
+      "updatedAt": "2024-04-15T09:26:56Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
@@ -125,6 +142,34 @@
       "headRefName": "BasilGuo-change-wg",
       "headRefOid": "7bf4ef33e85adcad730e7d2513fb682cd13259fb",
       "closedAt": "2023-07-05T14:07:19Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOJ0geBc5sp4oy",
+      "title": "Prepare for version 01",
+      "url": "https://github.com/LucasWang86/fcbgp--framework/pull/5",
+      "state": "OPEN",
+      "author": "BasilGuo",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "BasilGuo"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-15T10:13:52Z",
+      "updatedAt": "2024-04-15T10:14:07Z",
+      "baseRepository": "LucasWang86/fcbgp--framework",
+      "baseRefName": "main",
+      "baseRefOid": "7e03afa8c8acc37762f84cef5259219e4d70870e",
+      "headRepository": "LucasWang86/fcbgp--framework",
+      "headRefName": "BasilGuo-update-version01",
+      "headRefOid": "906981e33722ee42e871a5b09571aab671d602d9",
+      "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
