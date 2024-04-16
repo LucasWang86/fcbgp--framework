@@ -5,10 +5,10 @@
 Secure Inter-Domain Routing                                        K. Xu
 Internet-Draft                                                   X. Wang
 Intended status: Informational                                    Z. liu
-Expires: 17 October 2024                                           Q. Li
+Expires: 18 October 2024                                           Q. Li
                                                                    J. Wu
                                                      Tsinghua University
-                                                           15 April 2024
+                                                           16 April 2024
 
 
                  Framework of Forwarding Commitment BGP
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 October 2024.
+   This Internet-Draft will expire on 18 October 2024.
 
 Copyright Notice
 
@@ -84,12 +84,14 @@ Table of Contents
 
    1.  Introduction
      1.1.  Requirements Language
+     1.2.  Definitions, and Acronyms
    2.  Overview
    3.  Forwarding Commitment
    4.  BGP Path Validation
    5.  Forwarding Validation
    6.  Security Considerations
      6.1.  Security Guarantees
+     6.2.  Three AS Numbers
    7.  IANA Considerations
    8.  References
      8.1.  Normative References
@@ -137,14 +139,6 @@ Table of Contents
    domain routing and forwarding.  The FC-BGP protocol specification is
    out of the scope of this document.
 
-   FC-BGP relies on the Resource Public Key Infrastructure (RPKI)
-   certificates that attest to the allocation of AS number and IP
-   address resources.  To support FC-BGP, a BGP speaker MUST possess a
-   private key associated with an RPKI router certificate that
-   corresponds to the BGP speaker's AS number.  That means FC-BGP will
-   directly use the key/certificate generation, management, rollover,
-   and revocation from BGPsec [RFC8209] [RFC8608] [RFC8634] [RFC8635].
-
 1.1.  Requirements Language
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -153,10 +147,25 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+1.2.  Definitions, and Acronyms
+
+   FC:  Forwarding Commitment, i.e., FC segment.  It contains several
+      fields, especially the previous AS number (PASN), the current AS
+      number (CASN), the next-hop AS number (NASN), the prefix, and a
+      digital signature to protect the current path.  We use
+      F(PASN,CASN,NASN,Prefix) to represent it.
+
+   FCList:  An ordered list of FC segments to protect the whole AS-Path.
+      The order of FCs follows the order of AS numbers in the AS-Path.
+      We use several FC() linked with '-' to represent it.
+
+   Link:  A link is an AS hop in the context of FC-BGP in this document.
+      We use L(SD) to represent the link between AS S and AS D.
+
 2.  Overview
 
-   An overview of FC-BGP is shown in Figure 1.  The key primitive in FC-
-   BGP is the Forwarding Commitment (FC), which is a publicly verifiable
+   Overview of FC-BGP is shown in Figure 1.  The key primitive in FC-BGP
+   is the Forwarding Commitment (FC), which is a publicly verifiable
    segment that certifies an AS's routing intent on one of its directly
    connected hops, i.e., an FC indicates whether the AS is willing to
    carry traffic for a specific prefix over the hop.
@@ -180,6 +189,23 @@ Table of Contents
 
                        Figure 1: Overview of FC-BGP.
 
+   FC-BGP relies on the Resource Public Key Infrastructure (RPKI)
+   certificates that attest to the allocation of AS number and IP
+   address resources, as well as ASs' public keys or BGP router
+   certificates, which we have omitted in Figure 1.  To support FC-BGP,
+   a BGP speaker MUST possess a private key associated with an RPKI
+   router certificate that corresponds to the BGP speaker's AS number.
+   That means FC-BGP will directly use the key/certificate generation,
+   management, rollover, and revocation from BGPsec [RFC8209] [RFC8608]
+   [RFC8634] [RFC8635].
+
+   But for simplification, we treat the AS as a single entity in this
+   document, regardless of the number of BGP routers it contains.  This
+   means that the internal operations of the AS, such as the number of
+   BGP routers and the specific paths within the AS, are not relevant to
+   the FC processing.  Namely, the FC is not intended to be processed
+   within the AS itself (intra-domain).
+
    Take the Figure 1 as an example, upon receiving a BGP route
    announcement, if AS A decides to accept the route and extends the
    path to its (selected) neighbor AS B, AS A commits its routing intent
@@ -196,14 +222,14 @@ Table of Contents
    FC-BGP is not bound to a specific FC propagation method and can use,
    but is not limited to, the following mechanisms:
 
-   1.  Extend BGP UPDATE Message.  Assign a new BGP UPDATE Path
-       Attribute to carry FCs.
+   *  Extend BGP UPDATE Message.  Assign a new BGP UPDATE Path Attribute
+      to carry FCs.
 
-   2.  Propose a new propagation protocol that guarantees consistent FC
-       propagation.
+   *  Propose a new propagation protocol that guarantees consistent FC
+      propagation.
 
-   3.  Use existing network infrastructure, such as extending RPKI to
-       add a new signed object to store FCs.
+   *  Use existing network infrastructure, such as extending RPKI to add
+      a new signed object to store FCs.
 
    Meanwhile, the flexibility of FCs further enables efficient
    forwarding validation on the data plane.  Specifically, because the
@@ -222,82 +248,71 @@ Table of Contents
    BGP is not restricted to specific methods and can be, but is not
    limited to, the following:
 
-   1.  Propose a new propagation protocol that guarantees the
-       consistency of binding messages.
+   *  Propose a new propagation protocol that guarantees the consistency
+      of binding messages.
 
-   2.  Use existing network infrastructure, such as extending RPKI to
-       add a new signed object to store binding messages.
-
-   We assume that ASs participating in FC-BGP have access to RPKI, which
-   stores authoritative information about the mapping between AS numbers
-   and their owned IP prefixes, as well as ASs' public keys.  Given the
-   above assumptions, we consider the following adversary:
-
-   1.  On the control plane, the adversary can launch path manipulation
-       attacks.  This means that the adversary will try to manipulate
-       the routing paths to victim ASs or prefixes by sending bogus BGP
-       UPDATEs.  For example, the adversary might try to reroute traffic
-       to the victim ASs/prefixes through ASs that they control, to
-       perform (encrypted) traffic analysis.
-
-   2.  On the data plane, the adversary can spoof source addresses and
-       send unwanted network traffic to the victim ASs prefixes.
+   *  Use existing network infrastructure, such as extending RPKI to add
+      a new signed object to store binding messages.
 
 3.  Forwarding Commitment
 
    FC-BGP enhances the security of inter-domain routing and forwarding
-   by building a publicly verifiable view of the forwarding commitments.
-   At a high level, a routing commitment (FC) of an AS is a
-   cryptographically signed primitive that binds the AS's routing
-   decisions (e.g. willing to forward traffic for a prefix via one of
-   its directly-connected hops).  With this view, ASs are able to:
+   by building a publicly verifiable view on the forwarding commitments
+   (FC).
 
-   1.  Evaluate the authenticity (or security) of the control plane BGP
-       announcements based on committed routing decisions from relevant
-       ASs.
+   At a high level, an FC of an AS is a cryptographically signed
+   primitive that binds the AS's routing decisions (e.g. willing to
+   forward traffic for a prefix via one of its directly connected hops).
+   With this view, ASs are able to:
 
-   2.  Ensure that the data plane forwarding is consistent with the
-       routing decisions committed in the control plane.
+   *  evaluate the authenticity (or security) of the control plane BGP
+      announcements based on committed routing decisions from relevant
+      ASs;
 
-   Upon receiving a BGP announcement, an upgraded AS generates a
-   corresponding FC that contains the core information of the
-   announcement, such as prefixes, sending AS, and receiving AS, and
-   will be signed with the sender's private key for security.
+   *  and ensure that the data plane forwarding is consistent with the
+      routing decisions committed in the control plane.
+
+   At a low level, upon receiving a BGP announcement, an upgraded AS
+   generates a corresponding FC that contains the core information of
+   the announcement, such as prefixes, previous AS number, current AS
+   number, nexthop AS number, etc., and will be signed with the sender's
+   private key for security.  We will discuss the design of three AS
+   numbers in Section 6.2.
 
 4.  BGP Path Validation
 
-                                               FClist:F(C,D,P)
-                             FClist:F(B,C,P)          F(B,C,P)
-          FClist:F(A,B,P)           F(A,B,P)          F(A,B,P)
-        | AS-Path:A       |  AS-Path:A-B     | AS-Path:A-B-C    |
-        +---------------->+----------------->+----------------->|
-        |                 |                  |                  |
-        |                 |                  |                  |
-        |                 |                  |                  |
-   +----+---+        +----+---+         +----+---+         +----+---+
-   |  AS A  +--------+  AS B  +---------+  AS C  +---------+  AS D  |
-   +----+---+        +----+---+         +----+---+         +----+---+
-        |                 |                  |                  |
-        |        F(C,D,P)-(src:P(D),dst:P(A))+<-----------------+
-        |                 |                  |                  |
-        |                 |                  |                  |
-        |                 |<-----------------+------------------+
-        |                 |      F(B,C,P)-(src:P(D),dst:P(A))   |
-        |                 |                  |                  |
-        |                 |                  |                  |
-        |<----------------+------------------+------------------+
-                      F(A,B,P)-(src:P(D),dst:P(A))
+                                                     FClist:F(B,C,D,P)
+                                  FClist:F(A,B,C,P)   F(A,B,C,P)
+       FClist:F(Null,A,B,P)       F(Null,A,B,P)       F(Null,A,B,P)
+     | AS Path:A            |     AS Path:A-B     |    AS Path:A-B-C    |
+     +--------------------->+-------------------->+-------------------->|
+     |                      |                     |                     |
+     |                      |                     |                     |
+     |                      |                     |                     |
++----+---+             +----+---+            +----+---+            +----+---+
+|  AS A  +-------------+  AS B  +------------+  AS C  +------------+  AS D  |
++----+---+             +----+---+            +----+---+            +----+---+
+     |                      |                     |                     |
+     |              F(B,C,D,P)-(src:P(D),dst:P(A))+<--------------------+
+     |                      |                     |                     |
+     |                      |                     |                     |
+     |                      +<--------------------+---------------------+
+     |                      |    F(A,B,C,P)-(src:P(D),dst:P(A))         |
+     |                      |                     |                     |
+     |                      |                     |                     |
+     |<---------------------+---------------------+---------------------+
+                   F(Null,A,B,P)-(src:P(D),dst:P(A))
 
-                        Figure 2: Example of FC-BGP.
+                     Figure 2: Example of FC-BGP.
 
    Consider an illustrative example using the four-AS topology shown in
    Figure 2.  In this process, FC-BGP generates the corresponding FC and
-   propagates to downstream ASs (e.g., adding it to the Path Attributes
-   of the BGP UPDATEs), so that the receiving AS can validate the
-   authenticity of the announcement.  Suppose AS C receives a BGP
+   propagates it to downstream ASs (e.g., adding it to the Path
+   Attributes of the BGP UPDATEs), so that the receiving AS can validate
+   the authenticity of the announcement.  Suppose AS C receives a BGP
    announcement P(A): A->B->C from its neighbor B.  If AS C decides to
    further advertise this path to its neighbor D based on its routing
-   policy, it generates a FC F(C,D,P), propagates it to AS D, and
+   policy, it generates an FC F(B,C,D,P), propagates it to AS D, and
    forwards the BGP UPDATE message to D.
 
    When AS D receives the route from C, it can determine the
@@ -306,25 +321,26 @@ Table of Contents
 
 5.  Forwarding Validation
 
-   AS shown in Figure 2, to enable forwarding validation, ASs need to
+   As shown in Figure 2, to enable forwarding validation, ASs need to
    announce the traffic-FCs binding relationships.  Specifically,
    suppose AS D confirms that the AS-Path C->B->A for reaching prefix
-   P(A) is legitimate, it binds the traffic (src:P(D),dst:P(A)) (where
-   P(D) is the prefix owned by AS D) with the FC list F(C,D,P)-F(B,C,P)-
-   F(A,B,P), and then publicly announces the binding relationship.
+   P(A) is legitimate, it binds the traffic < src:P(D),dst:P(A) > (where
+   P(k) is the prefix owned by AS k) with the FC list F(B,C,D,P)-
+   F(A,B,C,P)-F(Null,A,B,P), and then publicly announces the binding
+   relationship.
 
-   Upon receiving the relationship, other ASs can build traffic
+   Upon receiving the relationship, other ASes can build traffic
    filtering rules based on the relationship to enable forwarding
-   validation on data plane.  For instance, by interpreting the binding
-   relationship produced by AS D, AS C confirms that the traffic
-   (src:P(D), dst:P(A)) shall be forwarded over the link L(CD), and AS B
-   confirms that the traffic shall be forwarded on link L(BC).  Network
-   traffic violating these binding rules is considered to take
+   validation on the data plane.  For instance, by interpreting the
+   binding relationship produced by AS D, AS C confirms that the traffic
+   < src:P(D), dst:P(A) > shall be forwarded over the link L(CD), and AS
+   B confirms that the traffic shall be forwarded on link L(BC).
+   Network traffic violating these binding rules is considered to take
    unauthorized paths.
 
    To enable network-wide forwarding verification, these binding rules
-   may be further broadcast globally (instead of just informing the ASs
-   on the AS-Path) so that off-path ASs can also discard unauthorized
+   may be further broadcast globally (instead of just informing the ASes
+   on the AS-path) so that off-path ASes can also discard unauthorized
    flows.
 
 6.  Security Considerations
@@ -334,13 +350,13 @@ Table of Contents
    When FC-BGP used in conjunction with origin validation, the following
    security guarantees can be achieved:
 
-   1.  The source AS in a route announcement is authorized.
+   *  The source AS in a route announcement is authorized.
 
-   2.  FC-BGP speakers on the AS-Path are authorized to propagate the
-       route announcements.
+   *  FC-BGP speakers on the AS-Path are authorized to propagate the
+      route announcements.
 
-   3.  The forwarding path of packets is consistent with the routing
-       path announced by the FC-BGP speakers.
+   *  The forwarding path of packets is consistent with the routing path
+      announced by the FC-BGP speakers.
 
    FC-BGP is designed to enhance the security of control plane routing
    and data plane forwarding in the Internet at the network layer.
@@ -355,6 +371,13 @@ Table of Contents
    non-secure.  Instead, the security benefits are strictly
    monotonically increasing as the deployment rate of FC-BGP (i.e., the
    percentage of ASs that are upgraded to support FC-BGP) increases.
+
+6.2.  Three AS Numbers
+
+   An FC segment contains only partial path information and FCs in the
+   FCList are independent.  To prevent BGP Path Splicing attacks, we
+   propose to use the triplet <Previous AS Number, Current AS Number,
+   Nexthop AS Number> to locate the pathlet information.
 
 7.  IANA Considerations
 

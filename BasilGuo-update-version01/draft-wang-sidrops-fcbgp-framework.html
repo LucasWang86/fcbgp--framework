@@ -1034,7 +1034,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Xu, et al.</td>
-<td class="center">Expires 17 October 2024</td>
+<td class="center">Expires 18 October 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1047,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-wang-sidrops-fcbgp-framework-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-04-15" class="published">15 April 2024</time>
+<time datetime="2024-04-16" class="published">16 April 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-10-17">17 October 2024</time></dd>
+<dd class="expires"><time datetime="2024-10-18">18 October 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1118,7 +1118,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1153,10 +1153,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-requirements-language" class="internal xref">Requirements Language</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-definitions-and-acronyms" class="internal xref">Definitions, and Acronyms</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-overview" class="internal xref">Overview</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-overview" class="internal xref">Overview</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-forwarding-commitment" class="internal xref">Forwarding Commitment</a></p>
@@ -1172,6 +1175,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-security-guarantees" class="internal xref">Security Guarantees</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-three-as-numbers" class="internal xref">Three AS Numbers</a></p>
 </li>
             </ul>
 </li>
@@ -1199,7 +1205,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </nav>
 </section>
 </div>
-<div id="introduction">
+<div id="intro">
 <section id="section-1">
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
@@ -1209,7 +1215,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-1-3">The representative schemes to secure inter-domain routing are RPKI <span>[<a href="#RFC6480" class="cite xref">RFC6480</a>]</span> and BGPsec <span>[<a href="#RFC8205" class="cite xref">RFC8205</a>]</span>. RPKI provides a foundation for validating the origins of BGP routes by Route Origin Authorization <span>[<a href="#RFC6482" class="cite xref">RFC6482</a>]</span>. The Validated ROA Payload will be sent to the BGP router by RTR protocol <span>[<a href="#RFC6810" class="cite xref">RFC6810</a>]</span>. The details can refer to BGP Prefix Origin Validation <span>[<a href="#RFC6811" class="cite xref">RFC6811</a>]</span>. Meanwhile, BGPsec directly builds the path authentication of BGP routes into the BGP path construction itself, where an AS must iteratively verify the signatures of each prior AS hop before extending the verification chain with its own approval. As a result, a single legacy or malicious AS can terminate the verification chain, preventing the downstream ASs from reinstating the verification process. This creates the well-known chicken-and-egg problem where early adopters receive no deployment benefits, further limiting new adoption.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">Finally, due to the lack of practical protocols to check the consistency between the data plane forwarding and control-plane decisions, enforcing path authorization in the inter-domain forwarding has been not possible to date.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">This document specifies the framework of a mechanism named FC-BGP, an incrementally deployable security augment to the Internet inter-domain routing and forwarding. The FC-BGP protocol specification is out of the scope of this document.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">FC-BGP relies on the Resource Public Key Infrastructure (RPKI) certificates that attest to the allocation of AS number and IP address resources. To support FC-BGP, a BGP speaker <span class="bcp14">MUST</span> possess a private key associated with an RPKI router certificate that corresponds to the BGP speaker's AS number. That means FC-BGP will directly use the key/certificate generation, management, rollover, and revocation from BGPsec <span>[<a href="#RFC8209" class="cite xref">RFC8209</a>]</span> <span>[<a href="#RFC8608" class="cite xref">RFC8608</a>]</span> <span>[<a href="#RFC8634" class="cite xref">RFC8634</a>]</span> <span>[<a href="#RFC8635" class="cite xref">RFC8635</a>]</span>.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <div id="requirements-language">
 <section id="section-1.1">
         <h3 id="name-requirements-language">
@@ -1221,6 +1226,30 @@ described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</s
 appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="definitions-and-acronyms">
+<section id="section-1.2">
+        <h3 id="name-definitions-and-acronyms">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-definitions-and-acronyms" class="section-name selfRef">Definitions, and Acronyms</a>
+        </h3>
+<span class="break"></span><dl class="dlParallel" id="section-1.2-1">
+          <dt id="section-1.2-1.1">FC:</dt>
+          <dd style="margin-left: 1.5em" id="section-1.2-1.2">
+            <p id="section-1.2-1.2.1">Forwarding Commitment, i.e., FC segment. It contains several fields, especially the previous AS number (PASN), the current AS number (CASN), the next-hop AS number (NASN), the prefix, and a digital signature to protect the current path. We use F(PASN,CASN,NASN,Prefix) to represent it.<a href="#section-1.2-1.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-1.2-1.3">FCList:</dt>
+          <dd style="margin-left: 1.5em" id="section-1.2-1.4">
+            <p id="section-1.2-1.4.1">An ordered list of FC segments to protect the whole AS-Path. The order of FCs follows the order of AS numbers in the AS-Path. We use several FC() linked with '-' to represent it.<a href="#section-1.2-1.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-1.2-1.5">Link:</dt>
+          <dd style="margin-left: 1.5em" id="section-1.2-1.6">
+            <p id="section-1.2-1.6.1">A link is an AS hop in the context of FC-BGP in this document. We use L(SD) to represent the link between AS S and AS D.<a href="#section-1.2-1.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</section>
+</div>
 </section>
 </div>
 <div id="overview">
@@ -1228,7 +1257,7 @@ appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">�
       <h2 id="name-overview">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-overview" class="section-name selfRef">Overview</a>
       </h2>
-<p id="section-2-1">An overview of FC-BGP is shown in <a href="#figure1" class="auto internal xref">Figure 1</a>. The key primitive in FC-BGP is the Forwarding Commitment (FC), which is a publicly verifiable segment that certifies an AS's routing intent on one of its directly connected hops, i.e., an FC indicates whether the AS is willing to carry traffic for a specific prefix over the hop.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">Overview of FC-BGP is shown in <a href="#figure1" class="auto internal xref">Figure 1</a>. The key primitive in FC-BGP is the Forwarding Commitment (FC), which is a publicly verifiable segment that certifies an AS's routing intent on one of its directly connected hops, i.e., an FC indicates whether the AS is willing to carry traffic for a specific prefix over the hop.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <span id="name-overview-of-fc-bgp"></span><div id="figure1">
 <figure id="figure-1">
         <div class="alignLeft art-text artwork" id="section-2-2.1">
@@ -1255,58 +1284,52 @@ Plane     |    1.1     |        |    1.2       |
 <a href="#name-overview-of-fc-bgp" class="selfRef">Overview of FC-BGP.</a>
         </figcaption></figure>
 </div>
-<p id="section-2-3">Take the <a href="#figure1" class="auto internal xref">Figure 1</a> as an example, upon receiving a BGP route announcement, if AS A decides to accept the route and extends the path to its (selected) neighbor AS B, AS A commits its routing intent by generating a cryptographically signed FC. Therefore, downstream on-path ASs (such as AS B) can validate the correctness of a BGP UPDATE by checking the FCs associated with the individual hops on the AS-Path. Because the FCs are designed to be hop-specific and path-agnostic, a deployed AS can immediately certify its routing intent regardless of the deployment status of other ASs. This is fundamentally different from existing path-level BGP authentication protocol (e.g., BGPsec) where an on-path AS cannot approve any form of routing intent unless all on-path ASs are upgraded.<a href="#section-2-3" class="pilcrow">¶</a></p>
-<p id="section-2-4">FC-BGP is not bound to a specific FC propagation method and can use, but is not limited to, the following mechanisms:<a href="#section-2-4" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2-5">
-<li id="section-2-5.1">
-          <p id="section-2-5.1.1">Extend BGP UPDATE Message. Assign a new BGP UPDATE Path Attribute to carry FCs.<a href="#section-2-5.1.1" class="pilcrow">¶</a></p>
+<p id="section-2-3">FC-BGP relies on the Resource Public Key Infrastructure (RPKI) certificates that attest to the allocation of AS number and IP address resources, as well as ASs' public keys or BGP router certificates, which we have omitted in <a href="#figure1" class="auto internal xref">Figure 1</a>. To support FC-BGP, a BGP speaker <span class="bcp14">MUST</span> possess a private key associated with an RPKI router certificate that corresponds to the BGP speaker's AS number. That means FC-BGP will directly use the key/certificate generation, management, rollover, and revocation from BGPsec <span>[<a href="#RFC8209" class="cite xref">RFC8209</a>]</span> <span>[<a href="#RFC8608" class="cite xref">RFC8608</a>]</span> <span>[<a href="#RFC8634" class="cite xref">RFC8634</a>]</span> <span>[<a href="#RFC8635" class="cite xref">RFC8635</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-4">But for simplification, we treat the AS as a single entity in this document, regardless of the number of BGP routers it contains. This means that the internal operations of the AS, such as the number of BGP routers and the specific paths within the AS, are not relevant to the FC processing. Namely, the FC is not intended to be processed within the AS itself (intra-domain).<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-5">Take the <a href="#figure1" class="auto internal xref">Figure 1</a> as an example, upon receiving a BGP route announcement, if AS A decides to accept the route and extends the path to its (selected) neighbor AS B, AS A commits its routing intent by generating a cryptographically signed FC. Therefore, downstream on-path ASs (such as AS B) can validate the correctness of a BGP UPDATE by checking the FCs associated with the individual hops on the AS-Path. Because the FCs are designed to be hop-specific and path-agnostic, a deployed AS can immediately certify its routing intent regardless of the deployment status of other ASs. This is fundamentally different from existing path-level BGP authentication protocol (e.g., BGPsec) where an on-path AS cannot approve any form of routing intent unless all on-path ASs are upgraded.<a href="#section-2-5" class="pilcrow">¶</a></p>
+<p id="section-2-6">FC-BGP is not bound to a specific FC propagation method and can use, but is not limited to, the following mechanisms:<a href="#section-2-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-7.1">
+          <p id="section-2-7.1.1">Extend BGP UPDATE Message. Assign a new BGP UPDATE Path Attribute to carry FCs.<a href="#section-2-7.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-5.2">
-          <p id="section-2-5.2.1">Propose a new propagation protocol that guarantees consistent FC propagation.<a href="#section-2-5.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-2-7.2">
+          <p id="section-2-7.2.1">Propose a new propagation protocol that guarantees consistent FC propagation.<a href="#section-2-7.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-5.3">
-          <p id="section-2-5.3.1">Use existing network infrastructure, such as extending RPKI to add a new signed object to store FCs.<a href="#section-2-5.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-2-7.3">
+          <p id="section-2-7.3.1">Use existing network infrastructure, such as extending RPKI to add a new signed object to store FCs.<a href="#section-2-7.3.1" class="pilcrow">¶</a></p>
 </li>
-      </ol>
-<p id="section-2-6">Meanwhile, the flexibility of FCs further enables efficient forwarding validation on the data plane. Specifically, because the FCs are self-proving, an AS can conceptually construct a certified AS-Path using a list of consecutive per-hop FCs and then bind its network traffic (identified by &lt; src-AS, dst-AS, prefix &gt;) to the path, such as &lt; AS B, AS A, P(B) &gt;, where P(B) is the prefix owned by AS B destined to AS A. This binding information essentially defines the authorized forwarding path for the traffic &lt; AS B, AS A, P(B) &gt;. Therefore, by advertising the binding information globally, both on-path and off-path ASs are aware of the desired forwarding paths so that they can collaboratively discard unwanted traffic that takes unauthorized paths.<a href="#section-2-6" class="pilcrow">¶</a></p>
-<p id="section-2-7">Similar to FC propagation, the propagation of binding messages in FC-BGP is not restricted to specific methods and can be, but is not limited to, the following:<a href="#section-2-7" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2-8">
-<li id="section-2-8.1">
-          <p id="section-2-8.1.1">Propose a new propagation protocol that guarantees the consistency of binding messages.<a href="#section-2-8.1.1" class="pilcrow">¶</a></p>
+      </ul>
+<p id="section-2-8">Meanwhile, the flexibility of FCs further enables efficient forwarding validation on the data plane. Specifically, because the FCs are self-proving, an AS can conceptually construct a certified AS-Path using a list of consecutive per-hop FCs and then bind its network traffic (identified by &lt; src-AS, dst-AS, prefix &gt;) to the path, such as &lt; AS B, AS A, P(B) &gt;, where P(B) is the prefix owned by AS B destined to AS A. This binding information essentially defines the authorized forwarding path for the traffic &lt; AS B, AS A, P(B) &gt;. Therefore, by advertising the binding information globally, both on-path and off-path ASs are aware of the desired forwarding paths so that they can collaboratively discard unwanted traffic that takes unauthorized paths.<a href="#section-2-8" class="pilcrow">¶</a></p>
+<p id="section-2-9">Similar to FC propagation, the propagation of binding messages in FC-BGP is not restricted to specific methods and can be, but is not limited to, the following:<a href="#section-2-9" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-10.1">
+          <p id="section-2-10.1.1">Propose a new propagation protocol that guarantees the consistency of binding messages.<a href="#section-2-10.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-2-8.2">
-          <p id="section-2-8.2.1">Use existing network infrastructure, such as extending RPKI to add a new signed object to store binding messages.<a href="#section-2-8.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-2-10.2">
+          <p id="section-2-10.2.1">Use existing network infrastructure, such as extending RPKI to add a new signed object to store binding messages.<a href="#section-2-10.2.1" class="pilcrow">¶</a></p>
 </li>
-      </ol>
-<p id="section-2-9">We assume that ASs participating in FC-BGP have access to RPKI, which stores authoritative information about the mapping between AS numbers and their owned IP prefixes, as well as ASs' public keys. Given the above assumptions, we consider the following adversary:<a href="#section-2-9" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2-10">
-<li id="section-2-10.1">
-          <p id="section-2-10.1.1">On the control plane, the adversary can launch path manipulation attacks. This means that the adversary will try to manipulate the routing paths to victim ASs or prefixes by sending bogus BGP UPDATEs. For example, the adversary might try to reroute traffic to the victim ASs/prefixes through ASs that they control, to perform (encrypted) traffic analysis.<a href="#section-2-10.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-2-10.2">
-          <p id="section-2-10.2.1">On the data plane, the adversary can spoof source addresses and send unwanted network traffic to the victim ASs prefixes.<a href="#section-2-10.2.1" class="pilcrow">¶</a></p>
-</li>
-      </ol>
+      </ul>
 </section>
 </div>
-<div id="forwarding-commitment">
+<div id="fc">
 <section id="section-3">
       <h2 id="name-forwarding-commitment">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-forwarding-commitment" class="section-name selfRef">Forwarding Commitment</a>
       </h2>
-<p id="section-3-1">FC-BGP enhances the security of inter-domain routing and forwarding by building a publicly verifiable view of the forwarding commitments. At a high level, a routing commitment (FC) of an AS is a cryptographically signed primitive that binds the AS's routing decisions (e.g. willing to forward traffic for a prefix via one of its directly-connected hops). With this view, ASs are able to:<a href="#section-3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3-2">
-<li id="section-3-2.1">
-          <p id="section-3-2.1.1">Evaluate the authenticity (or security) of the control plane BGP announcements based on committed routing decisions from relevant ASs.<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-3-1">FC-BGP enhances the security of inter-domain routing and forwarding by building a publicly verifiable view on the forwarding commitments (FC).<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">At a high level, an FC of an AS is a cryptographically signed primitive that binds the AS's routing decisions (e.g. willing to forward traffic for a prefix via one of its directly connected hops). With this view, ASs are able to:<a href="#section-3-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-3.1">
+          <p id="section-3-3.1.1">evaluate the authenticity (or security) of the control plane BGP announcements based on committed routing decisions from relevant ASs;<a href="#section-3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-2.2">
-          <p id="section-3-2.2.1">Ensure that the data plane forwarding is consistent with the routing decisions committed in the control plane.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-3-3.2">
+          <p id="section-3-3.2.1">and ensure that the data plane forwarding is consistent with the routing decisions committed in the control plane.<a href="#section-3-3.2.1" class="pilcrow">¶</a></p>
 </li>
-      </ol>
-<p id="section-3-3">Upon receiving a BGP announcement, an upgraded AS generates a corresponding FC that contains the core information of the announcement, such as prefixes, sending AS, and receiving AS, and will be signed with the sender's private key for security.<a href="#section-3-3" class="pilcrow">¶</a></p>
+      </ul>
+<p id="section-3-4">At a low level, upon receiving a BGP announcement, an upgraded AS generates a corresponding FC that contains the core information of the announcement, such as prefixes, previous AS number, current AS number, nexthop AS number, etc., and will be signed with the sender's private key for security. We will discuss the design of three AS numbers in <a href="#sec-three-as" class="auto internal xref">Section 6.2</a>.<a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="bgp-path-validation">
+<div id="bgp-pv">
 <section id="section-4">
       <h2 id="name-bgp-path-validation">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-bgp-path-validation" class="section-name selfRef">BGP Path Validation</a>
@@ -1315,45 +1338,45 @@ Plane     |    1.1     |        |    1.2       |
 <figure id="figure-2">
         <div class="alignLeft art-text artwork" id="section-4-1.1">
 <pre>
-                                            FClist:F(C,D,P)
-                          FClist:F(B,C,P)          F(B,C,P)
-       FClist:F(A,B,P)           F(A,B,P)          F(A,B,P)
-     | AS-Path:A       |  AS-Path:A-B     | AS-Path:A-B-C    |
-     +----------------&gt;+-----------------&gt;+-----------------&gt;|
-     |                 |                  |                  |
-     |                 |                  |                  |
-     |                 |                  |                  |
-+----+---+        +----+---+         +----+---+         +----+---+
-|  AS A  +--------+  AS B  +---------+  AS C  +---------+  AS D  |
-+----+---+        +----+---+         +----+---+         +----+---+
-     |                 |                  |                  |
-     |        F(C,D,P)-(src:P(D),dst:P(A))+&lt;-----------------+
-     |                 |                  |                  |
-     |                 |                  |                  |
-     |                 |&lt;-----------------+------------------+
-     |                 |      F(B,C,P)-(src:P(D),dst:P(A))   |
-     |                 |                  |                  |
-     |                 |                  |                  |
-     |&lt;----------------+------------------+------------------+
-                   F(A,B,P)-(src:P(D),dst:P(A))
+                                                     FClist:F(B,C,D,P)
+                                  FClist:F(A,B,C,P)   F(A,B,C,P)
+       FClist:F(Null,A,B,P)       F(Null,A,B,P)       F(Null,A,B,P)
+     | AS Path:A            |     AS Path:A-B     |    AS Path:A-B-C    |
+     +---------------------&gt;+--------------------&gt;+--------------------&gt;|
+     |                      |                     |                     |
+     |                      |                     |                     |
+     |                      |                     |                     |
++----+---+             +----+---+            +----+---+            +----+---+
+|  AS A  +-------------+  AS B  +------------+  AS C  +------------+  AS D  |
++----+---+             +----+---+            +----+---+            +----+---+
+     |                      |                     |                     |
+     |              F(B,C,D,P)-(src:P(D),dst:P(A))+&lt;--------------------+
+     |                      |                     |                     |
+     |                      |                     |                     |
+     |                      +&lt;--------------------+---------------------+
+     |                      |    F(A,B,C,P)-(src:P(D),dst:P(A))         |
+     |                      |                     |                     |
+     |                      |                     |                     |
+     |&lt;---------------------+---------------------+---------------------+
+                   F(Null,A,B,P)-(src:P(D),dst:P(A))
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-example-of-fc-bgp" class="selfRef">Example of FC-BGP.</a>
         </figcaption></figure>
 </div>
-<p id="section-4-2">Consider an illustrative example using the four-AS topology shown in <a href="#figure2" class="auto internal xref">Figure 2</a>. In this process, FC-BGP generates the corresponding FC and propagates to downstream ASs (e.g., adding it to the Path Attributes of the BGP UPDATEs), so that the receiving AS can validate the authenticity of the announcement. Suppose AS C receives a BGP announcement P(A): A-&gt;B-&gt;C from its neighbor B. If AS C decides to further advertise this path to its neighbor D based on its routing policy, it generates a FC F(C,D,P), propagates it  to AS D, and forwards the BGP UPDATE message to D.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-2">Consider an illustrative example using the four-AS topology shown in <a href="#figure2" class="auto internal xref">Figure 2</a>. In this process, FC-BGP generates the corresponding FC and propagates it to downstream ASs (e.g., adding it to the Path Attributes of the BGP UPDATEs), so that the receiving AS can validate the authenticity of the announcement. Suppose AS C receives a BGP announcement P(A): A-&gt;B-&gt;C from its neighbor B. If AS C decides to further advertise this path to its neighbor D based on its routing policy, it generates an FC F(B,C,D,P), propagates it to AS D, and forwards the BGP UPDATE message to D.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">When AS D receives the route from C, it can determine the authenticity of the current AS-Path by verifying the list of FCs correctly reflects the AS-Path.<a href="#section-4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="forwarding-validation">
+<div id="dp-validation">
 <section id="section-5">
       <h2 id="name-forwarding-validation">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-forwarding-validation" class="section-name selfRef">Forwarding Validation</a>
       </h2>
-<p id="section-5-1">AS shown in <a href="#figure2" class="auto internal xref">Figure 2</a>, to enable forwarding validation, ASs need to announce the traffic-FCs binding relationships. Specifically, suppose AS D confirms that the AS-Path C-&gt;B-&gt;A for reaching prefix P(A) is legitimate, it binds the traffic (src:P(D),dst:P(A)) (where P(D) is the prefix owned by AS D) with the FC list F(C,D,P)-F(B,C,P)-F(A,B,P), and then publicly announces the binding relationship.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">Upon receiving the relationship, other ASs can build traffic filtering rules based on the relationship to enable forwarding validation on data plane. For instance, by interpreting the binding relationship produced by AS D, AS C confirms that the traffic (src:P(D), dst:P(A)) shall be forwarded over the link L(CD), and AS B confirms that the traffic shall be forwarded on link L(BC). Network traffic violating these binding rules is considered to take unauthorized paths.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">To enable network-wide forwarding verification, these binding rules may be further broadcast globally (instead of just informing the ASs on the AS-Path) so that off-path ASs can also discard unauthorized flows.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-1">As shown in <a href="#figure2" class="auto internal xref">Figure 2</a>, to enable forwarding validation, ASs need to announce the traffic-FCs binding relationships. Specifically, suppose AS D confirms that the AS-Path C-&gt;B-&gt;A for reaching prefix P(A) is legitimate, it binds the traffic &lt; src:P(D),dst:P(A) &gt; (where P(k) is the prefix owned by AS k) with the FC list F(B,C,D,P)-F(A,B,C,P)-F(Null,A,B,P), and then publicly announces the binding relationship.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">Upon receiving the relationship, other ASes can build traffic filtering rules based on the relationship to enable forwarding validation on the data plane. For instance, by interpreting the binding relationship produced by AS D, AS C confirms that the traffic &lt; src:P(D), dst:P(A) &gt; shall be forwarded over the link L(CD), and AS B confirms that the traffic shall be forwarded on link L(BC). Network traffic violating these binding rules is considered to take unauthorized paths.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">To enable network-wide forwarding verification, these binding rules may be further broadcast globally (instead of just informing the ASes on the AS-path) so that off-path ASes can also discard unauthorized flows.<a href="#section-5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1367,18 +1390,26 @@ Plane     |    1.1     |        |    1.2       |
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-security-guarantees" class="section-name selfRef">Security Guarantees</a>
         </h3>
 <p id="section-6.1-1">When FC-BGP used in conjunction with origin validation, the following security guarantees can be achieved:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6.1-2">
-<li id="section-6.1-2.1">
+<ul class="normal">
+<li class="normal" id="section-6.1-2.1">
             <p id="section-6.1-2.1.1">The source AS in a route announcement is authorized.<a href="#section-6.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-6.1-2.2">
+          <li class="normal" id="section-6.1-2.2">
             <p id="section-6.1-2.2.1">FC-BGP speakers on the AS-Path are authorized to propagate the route announcements.<a href="#section-6.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-6.1-2.3">
+          <li class="normal" id="section-6.1-2.3">
             <p id="section-6.1-2.3.1">The forwarding path of packets is consistent with the routing path announced by the FC-BGP speakers.<a href="#section-6.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        </ol>
+        </ul>
 <p id="section-6.1-3">FC-BGP is designed to enhance the security of control plane routing and data plane forwarding in the Internet at the network layer. Specifically, FC-BGP allows an AS to independently prove its BGP routing decisions with publicly verifiable cryptography commitments, based on which any on-path AS can verify the authenticity of a BGP path; meanwhile FC-BGP ensures the consistency between the control plane and data plane, i.e., the network traffic shall take the forwarding path that is consistent with the control plane routing decisions, or otherwise be discarded. More crucially, the above security guarantees offered by FC-BGP are not binary, i.e., secure or non-secure. Instead, the security benefits are strictly monotonically increasing as the deployment rate of FC-BGP (i.e., the percentage of ASs that are upgraded to support FC-BGP) increases.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-three-as">
+<section id="section-6.2">
+        <h3 id="name-three-as-numbers">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-three-as-numbers" class="section-name selfRef">Three AS Numbers</a>
+        </h3>
+<p id="section-6.2-1">An FC segment contains only partial path information and FCs in the FCList are independent. To prevent BGP Path Splicing attacks, we propose to use the triplet &lt;Previous AS Number, Current AS Number, Nexthop AS Number&gt; to locate the pathlet information.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
